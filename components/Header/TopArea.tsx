@@ -13,7 +13,7 @@ export function TopArea() {
   }
 
   return (
-    <Grid container justify="space-between">
+    <Grid container justifyContent="space-between">
       <Grid item></Grid>
       <Grid item>
         <Typography variant="body2" component="span" className="pr-3">
