@@ -14,7 +14,7 @@ export function Authors({ className }: AuthorProps) {
   if (data == null || status !== 'success') {
     const dummyItems = Array.from({ length: 4 }, (_, i) => `item-${i}`)
     return (
-      <Grid container spacing={4} className={className} justify="center">
+      <Grid container spacing={4} className={className} justifyContent="center">
         {dummyItems.map((item) => (
           <Grid
             xs={2}
@@ -28,16 +28,16 @@ export function Authors({ className }: AuthorProps) {
   }
 
   return (
-    <Grid container spacing={4} className={className} justify="center">
+    <Grid container spacing={4} className={className} justifyContent="center">
       {data.map(({ id, photo, fullName, handle }) => (
         <Grid item key={id}>
-          <Link href={`/top-stories/${handle}`}>
-            <a title={`See latest stories from ${fullName}`}>
-              <img src={photo.url} width={150} />
+          <Link href={`/top-stories/${handle}`} passHref>
+            <div title={`See latest stories from ${fullName}`}>
+              <img src={photo.url} width={150} alt={`Photo of ${fullName}`} />
               <Typography variant="h5" component="p">
                 {fullName}
               </Typography>
-            </a>
+            </div>
           </Link>
         </Grid>
       ))}

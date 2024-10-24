@@ -52,22 +52,23 @@ export function PlantEntry({ plant, variant = 'square' }: PlantEntryType) {
 
 export function PlantEntrySquare({ image, plantName, slug }: Plant) {
   return (
-    <Link href={`/entry/${slug}`}>
-      <a title={`Go to ${plantName}`}>
-        <div className="opacity-95 hover:opacity-100">
-          <Image
-            src={image.url}
-            layout="intrinsic"
-            width={460}
-            aspectRatio="4:3"
-          />
-          <div className="p-4">
-            <Typography variant="h4" className="break-words">
-              {plantName}
-            </Typography>
-          </div>
+    <Link href={`/entry/${slug}`} passHref>
+      <div
+        title={`Go to ${plantName}`}
+        className="opacity-95 hover:opacity-100"
+      >
+        <Image
+          src={image.url}
+          layout="intrinsic"
+          width={460}
+          aspectRatio="4:3"
+        />
+        <div className="p-4">
+          <Typography variant="h4" className="break-words">
+            {plantName}
+          </Typography>
         </div>
-      </a>
+      </div>
     </Link>
   )
 }
@@ -79,26 +80,25 @@ export function PlantEntryInline({
   className,
 }: Plant & { className?: string }) {
   return (
-    <Link href={`/entry/${slug}`}>
-      <a title={`Go to ${plantName}`}>
-        <div
-          className={`opacity-95 hover:opacity-100 flex items-end ${className}`}
-        >
-          <Image
-            src={image.url}
-            layout="fixed"
-            width={84}
-            aspectRatio="1:1"
-            fit="fill"
-            className="flex-none"
-          />
-          <div className="pl-2 flex-auto">
-            <Typography variant="h6" className="break-words">
-              {plantName}
-            </Typography>
-          </div>
+    <Link href={`/entry/${slug}`} passHref>
+      <div
+        title={`Go to ${plantName}`}
+        className={`opacity-95 hover:opacity-100 flex items-end ${className}`}
+      >
+        <Image
+          src={image.url}
+          layout="fixed"
+          width={84}
+          aspectRatio="1:1"
+          fit="fill"
+          className="flex-none"
+        />
+        <div className="pl-2 flex-auto">
+          <Typography variant="h6" className="break-words">
+            {plantName}
+          </Typography>
         </div>
-      </a>
+      </div>
     </Link>
   )
 }
@@ -111,8 +111,8 @@ export function PlantEntryVertical({
 }: Plant) {
   return (
     <div className="opacity-95 hover:opacity-100">
-      <Link href={`/entry/${slug}`}>
-        <a title={`Go to ${plantName}`}>
+      <Link href={`/entry/${slug}`} passHref>
+        <div title={`Go to ${plantName}`}>
           <Image
             src={image.url}
             width={624}
@@ -122,8 +122,9 @@ export function PlantEntryVertical({
           <Typography variant="h2" className="break-words pt-4 px-4">
             {plantName}
           </Typography>
-        </a>
+        </div>
       </Link>
+
       <div className="px-4 pb-4">
         <Excerpt
           richText={description}
