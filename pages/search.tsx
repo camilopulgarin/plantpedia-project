@@ -1,7 +1,8 @@
-import { useState, ChangeEventHandler, useEffect } from 'react'
+import { useState, ChangeEventHandler, useEffect, useCallback } from 'react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { GetStaticProps } from 'next'
+import { debounce } from 'lodash'
 
 import {
   OutlinedInput,
@@ -27,7 +28,18 @@ export default function Search() {
   const [status, setStatus] = useState<QueryStatus>('idle')
   const [results, setResults] = useState<Plant[]>([])
 
-  const searchTerm = useDebounce(term, 500)
+  const debounceSearchPlants = useCallback(
+    debounce((term: string) => {
+    searchPlants({
+      term: term,
+      limit: 10,
+    }).then((data) => {
+      setResults(data)
+      setStatus('success')
+    })
+  }, 500),
+  []
+)
 
   const updateTerm: ChangeEventHandler<HTMLInputElement> = (event) =>
     setTerm(event.currentTarget.value)
@@ -35,7 +47,7 @@ export default function Search() {
   const emptyResults = status === 'success' && results.length === 0
 
   useEffect(() => {
-    if (searchTerm.trim().length < 3) {
+    if (term.trim().length < 3) {
       setStatus('idle')
       setResults([])
       return
@@ -43,15 +55,9 @@ export default function Search() {
 
     setStatus('loading')
 
-    // Pagination not supported... yet
-    searchPlants({
-      term: searchTerm,
-      limit: 10,
-    }).then((data) => {
-      setResults(data)
-      setStatus('success')
-    })
-  }, [searchTerm])
+    debounceSearchPlants(term)
+    
+  }, [term])
 
   return (
     <Layout>
