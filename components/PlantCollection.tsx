@@ -5,6 +5,7 @@ import { Button } from '@ui/Button'
 
 import { Excerpt } from '@components/Excerpt'
 import { Image } from '@components/Image'
+import { memo } from 'react'
 
 type PlantCollectionProps = {
   plants: Plant[]
@@ -20,7 +21,7 @@ export function PlantCollection({
   return (
     <Grid container component="ul" spacing={4} className={className}>
       {plants.map((plant) => (
-        <PlantEntry key={plant.id} plant={plant} variant={variant} />
+        <MemorizedPlantEntry key={plant.id} plant={plant} variant={variant} />
       ))}
     </Grid>
   )
@@ -30,6 +31,12 @@ type PlantEntryType = {
   plant: Plant
   variant?: 'square' | 'vertical'
 }
+
+const isEqual = (prevousProps: PlantEntryType, newProps: PlantEntryType) => {
+  return prevousProps.plant.plantName === newProps.plant.plantName
+}
+
+export const MemorizedPlantEntry = memo(PlantEntry, isEqual)
 
 export function PlantEntry({ plant, variant = 'square' }: PlantEntryType) {
   let gridItemProps: GridProps = { xs: 6, md: 4 }
