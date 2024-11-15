@@ -4,6 +4,9 @@ import { Grid } from '@ui/Grid'
 import { Typography } from '@ui/Typography'
 import { Button } from '@ui/Button'
 
+import { signIn, signOut, useSession } from 'next-auth/react'
+import { useTranslation } from 'react-i18next'
+
 export function TopArea() {
   const { locales, locale } = useRouter()
 
@@ -14,7 +17,9 @@ export function TopArea() {
 
   return (
     <Grid container justifyContent="space-between">
-      <Grid item></Grid>
+      <Grid item>
+        <LoginLogout />
+      </Grid>
       <Grid item>
         <Typography variant="body2" component="span" className="pr-3">
           Language:
@@ -38,5 +43,21 @@ export function TopArea() {
         ))}
       </Grid>
     </Grid>
+  )
+}
+
+const LoginLogout = () => {
+  const { data: session, status } = useSession() // obteniendo status
+  const { t } = useTranslation(['common'])
+
+  if (status === 'loading') return null // si esta cargando no mostrar nada
+
+  if (!session) return <Button onClick={() => signIn()}>{t('signIn')}</Button>
+
+  return (
+    <>
+      <span>{session.user?.name}</span>
+      <Button onClick={() => signOut()}>{t('signOut')}</Button>
+    </>
   )
 }
