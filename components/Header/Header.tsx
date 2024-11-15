@@ -18,6 +18,9 @@ export function Header() {
           <div>
             <NavLink href="/top-stories">Top Stories</NavLink>
           </div>
+          <div>
+            <NavLink href="/premium">Premium</NavLink>
+          </div>
         </NavBar>
       </div>
     </>
