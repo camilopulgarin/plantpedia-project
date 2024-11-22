@@ -21,6 +21,9 @@ export function Header() {
           <div>
             <NavLink href="/premium">Premium</NavLink>
           </div>
+          <div>
+            <NavLink href="/wall">Muro</NavLink>
+          </div>
         </NavBar>
       </div>
     </>
