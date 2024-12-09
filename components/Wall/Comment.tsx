@@ -28,7 +28,11 @@ export function Comment(props: CommentProps) {
         <header className="mb-2">
           <Typography variant="h6">{name}</Typography>
         </header>
-        <div dangerouslySetInnerHTML={{ __html: props.text }} />
+        {/* Vulnerabilidad */}
+        {/* <div dangerouslySetInnerHTML={{ __html: props.text }} /> */}
+        {/* mitigacion */}
+        <div>{props.text}</div>
+
       </div>
     </article>
   )
